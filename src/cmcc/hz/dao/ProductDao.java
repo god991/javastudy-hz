@@ -24,7 +24,7 @@ public class ProductDao extends BaseDao{
 	}
 	
 	public void delete(Integer id) {
-		// ?称为占位符
+		/*// ?称为占位符
 		String sql="delete from product where id = ?";
 		// 1: 连接数据库
 		JdbcUtils utils = new JdbcUtils();
@@ -41,8 +41,11 @@ public class ProductDao extends BaseDao{
 			// 可以处理异常: 发送异常到管理员邮箱
 			// 直接把当前异常向上抛出
 			throw new RuntimeException(e);
-		}
+		}*/
 		// 5: 关闭Connection释放资源
+		String sql="delete from product where id = ?";
+		super.executeUpdate(sql, new Object[] {id});
+		
 	}
 
 	
@@ -50,8 +53,9 @@ public class ProductDao extends BaseDao{
 	public void update(Product product) {
 		// ?称为占位符
 		String sql="update product set name=?,price=?,remark=? where id = ?";
+		
 		// 1: 连接数据库
-		JdbcUtils utils = new JdbcUtils();
+		/*JdbcUtils utils = new JdbcUtils();
 		Connection conn = utils.getConnection();
 		try {
 			// 2: 预编译SQL(此处并未真正执行SQL,因为还有参数未赋值)
@@ -71,6 +75,9 @@ public class ProductDao extends BaseDao{
 			throw new RuntimeException(e);
 		}
 		// 5: 关闭Connection释放资源
+		 */
+		super.executeUpdate(sql, new Object[] {product.getName(),product.getPrice(),
+				product.getRemark(),product.getId()});
 	}
 
 	// 编写一个方法,完成数据的插入操作
@@ -98,7 +105,8 @@ public class ProductDao extends BaseDao{
 		}*/
 		// 5: 关闭Connection释放资源
 		
-		
+		super.executeUpdate(sql, new Object[] {product.getName(),product.getPrice(),
+				product.getRemark()});
 	}
 
 }
