@@ -5,18 +5,23 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cmcc.hz.model.Product;
 
 public class ProductDaoTest {
 
 	private static ProductDao productDao;
+	private static ApplicationContext context;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("junit开始前环境准备……");
-		productDao = new ProductDao();
+//		productDao = new ProductDao();
 		
+		context = new ClassPathXmlApplicationContext("spring-bean.xml");
+		productDao = context.getBean("productDao", ProductDao.class);
 	}
 
 	@AfterClass
@@ -54,14 +59,14 @@ public class ProductDaoTest {
 		//p.setId(2);
 		p.setRemark("华为新款手机");
 		productDao.save(p);
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 	
 	@Test
 	public void testGetOne() {
 		//Product p=new Product();
-		Product p=productDao.getOne(1);
-		System.out.println(p);
+		//Product p=productDao.getOne(1);
+		//System.out.println(p);
 		
 	}
 

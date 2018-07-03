@@ -26,7 +26,7 @@ public class JdbcUtils {
 	// 1: 驱动: 就是数据库使用的说明书,不同的数据厂商会提供自己的驱动程序
 	// 2: 驱动程序、文件资源、xml只需要加载一次(一次代码都写在静态块)
 	static {
-		//System.out.println("静态块,此类加载到JVM中时会自动执行且执行一次");
+		System.out.println("JdbcUtils静态块,类加载到JVM中时会自动执行且执行一次");
 		// 加载驱动: 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
