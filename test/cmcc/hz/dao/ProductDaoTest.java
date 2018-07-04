@@ -9,10 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cmcc.hz.model.Product;
+import cmcc.hz.service.ProductService;
 
 public class ProductDaoTest {
 
-	private static ProductDao productDao;
+	private static ProductService productService;
 	private static ApplicationContext context;
 	
 	@BeforeClass
@@ -21,7 +22,7 @@ public class ProductDaoTest {
 //		productDao = new ProductDao();
 		
 		context = new ClassPathXmlApplicationContext("spring-bean.xml");
-		productDao = context.getBean("productDao", ProductDao.class);
+		productService = context.getBean("ps", ProductService.class);
 	}
 
 	@AfterClass
@@ -29,28 +30,7 @@ public class ProductDaoTest {
 		System.out.println("junit结束后资源释放……");
 	}
 
-	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdate() {
-		
-		String str1=new String("abc");
-		String str2=new String("bcd");
-		System.out.println(str1);
-		System.out.println(str1+str2);
-		
-		StringBuffer stringBuffer1=new StringBuffer("abc");
-		System.out.println(stringBuffer1);
-		stringBuffer1=stringBuffer1.append("bcd");
-		System.out.println(stringBuffer1);
-		
-		
-		fail("Not yet implemented");
-	}
-
+	
 	@Test
 	public void testSave() {
 		Product p=new Product();
@@ -58,16 +38,10 @@ public class ProductDaoTest {
 		p.setPrice(3600.00);
 		//p.setId(2);
 		p.setRemark("华为新款手机");
-		productDao.save(p);
+		productService.save(p);
 		//fail("Not yet implemented");
 	}
 	
-	@Test
-	public void testGetOne() {
-		//Product p=new Product();
-		//Product p=productDao.getOne(1);
-		//System.out.println(p);
-		
-	}
+	
 
 }

@@ -9,4 +9,28 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 配置mvc前端控制器 -->
+  <servlet>
+  	<!-- 类全名比较长，所有使用一个逻辑名代替 -->
+  	<servlet-name>dispatcherServlet</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- 此Servlet是在启动的时候会加载 spring-mvc的配置文件，并初始化bean。 -->
+  	<init-param>
+  		<!-- 配置启动时要加载的mvc配置文件 -->
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:spring-mvc.xml,classpath:spring-bean.xml</param-value>
+  		<!-- 也可以简写
+  		<param-value>classpath:spring*.xml</param-value>
+  		 -->
+  	</init-param>
+  	<!-- 配置项目启动时就加载,数值越低优先级越高 -->
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<!-- servlet-name 必须于上边配置的servlet-name相同 -->
+  	<servlet-name>dispatcherServlet</servlet-name>
+  	<!-- 定义需要过滤给controller处理的URL地址规则  -->
+  	<url-pattern>*.mvc</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
