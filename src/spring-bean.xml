@@ -35,6 +35,21 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
     </aop:config>
         
     
+     <!-- 此工具类mybatis替换mybatisUtils，主要用来加载mybatis的主配置文件，主文件中的datasource可以删除 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="configLocation" value="classpath:mybatis.cfg.xml"></property>
+    	<!-- mybatis中的datasource不能自动管理实务，因此需要将datasource交由spring管理 -->
+    	<property name="dataSource" ref="ds"></property>
+    </bean>
+    
+    <!-- 这里使用Mapper将Dao层接口和sql.xml进行绑定，并自动实例化一个DaoImpl实例 -->
+    <bean id="pdao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    	<!-- 绑定接口类 -->
+    	<property name="mapperInterface" value="cmcc.hz.dao.ProductDaoInterface" />
+    	<!-- 绑定sqlsessionFactory，创建链接. 这个属性在MapperFactoryBean的父类中 -->
+    	 <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+          
     <!-- 配置数据源 -->
 	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
@@ -44,16 +59,17 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
 		
 	</bean>
 	
+<!-- 使用mybatis后，jdbcTemplate和Dao层都不需要了 	
 	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
 	<property name="dataSource" ref="ds"></property>
 	</bean>
 	
 	<bean id="pd" class="cmcc.hz.dao.ProductDao">
 	    <property name="jdbcTemplate" ref="jt" />
-    </bean>
+    </bean> -->
     
     <bean id="ps" class="cmcc.hz.service.ProductService">
-	    <property name="productDao" ref="pd" />
+	    <property name="productDao" ref="pdao" />
     </bean>
 	
 </beans>

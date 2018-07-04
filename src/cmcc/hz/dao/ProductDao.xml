@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 有效的xml文件必须有xsd/dtd声明,此配置文件是用来编写SQL语句的文件,需要添加mybatis.cfg.xml中 -->
+ 
+ <!-- parameterType等还是繁琐，可以在myBatis主文件中定义别名 -->
+ 
+ 
+ <mapper namespace="cmcc.hz.dao.ProductDaoInterface">
+    <!-- parameterType: 指定传输的对象类型 -->
+    <insert id="save" parameterType="productModel">
+        <!-- #{name} 由于name私有,本质上是通过getName方法获取 -->
+    	insert into product (name,price,remark) values (#{name},#{price},#{remark})
+    </insert>
+    
+    <!-- select返回的是List，其resultType指的是返回的List中的类型 -->
+    <select id="getByName" parameterType="String" resultType="productModel">
+    	select * from product where name like #{name}
+    </select>
+ </mapper>

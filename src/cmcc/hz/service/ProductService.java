@@ -6,17 +6,14 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 import cmcc.hz.dao.ProductDao;
+import cmcc.hz.dao.ProductDaoInterface;
 import cmcc.hz.model.Product;
 
 public class ProductService {
 	
-	private ProductDao productDao=null;
+	private ProductDaoInterface productDao=null;
 	
-	public ProductDao getProductDao() {
-		return productDao;
-	}
-
-	public void setProductDao(ProductDao productDao) {
+	public void setProductDao(ProductDaoInterface productDao) {
 		this.productDao = productDao;
 	}
 
@@ -27,7 +24,7 @@ public class ProductService {
 	}
 	
 	public List<Product> getByName(String name) {
-		return productDao.getByName(name);
+		return productDao.getByName("%"+name+"%");
 		
 	}
 	

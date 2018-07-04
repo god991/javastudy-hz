@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 指定缺省的数据库连接 
+	整合后，datasource由spring管理，所以不再需要mybatis中的datasource
+	-->
+<!-- 	<environments default="demo">
+	    配置数据库连接参数
+		<environment id="demo">
+		    事务管理器,默认不同的框架事务管理器缺省值不同,mybatis就是手动事务 jdbcTemplate自动事务
+			<transactionManager type="JDBC" />
+			与spring连接池代码相同
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/mysql" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	
+	<!-- 可以给系统定义别名 -->
+    <typeAliases>
+    	<typeAlias type="cmcc.hz.model.Product" alias="productModel"/>
+    </typeAliases>
+	
+	<mappers>
+	    <!-- sql语句是添加mapper文件中 -->
+	    <!-- mapper文件存储了查询数据库的SQL语句 -->
+	    <mapper resource="cmcc/hz/dao/ProductDao.xml"/>
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
